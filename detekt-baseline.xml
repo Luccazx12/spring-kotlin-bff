@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>SwallowedException:MongoDBHealthChecker.kt$MongoDBHealthChecker$e: Exception</ID>
+    <ID>SwallowedException:RedisHealthChecker.kt$RedisHealthChecker$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MongoDBHealthChecker.kt$MongoDBHealthChecker$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:RedisHealthChecker.kt$RedisHealthChecker$e: Exception</ID>
+  </CurrentIssues>
+</SmellBaseline>
