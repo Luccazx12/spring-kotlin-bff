@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: spring-kotlin-bff
+  title: "Spring Kotlin Bff"
+  description: "BFF em Kotlin para aproximar os Devs Fronts (Android) dos BFFs"
+spec:
+  type: service
+  lifecycle: experimental
+  owner: luccazx12

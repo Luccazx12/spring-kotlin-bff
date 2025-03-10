@@ -1,0 +1,32 @@
+image: public.ecr.aws/docker/library/docker:git
+
+include:
+  - project: gitops/pipeline-gitlab
+    file: .gitlab-ci.yml
+
+variables:
+  FF_GITLAB_REGISTRY_HELPER_IMAGE: 1
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker-dind:2375
+  DOCKER_TLS_CERTDIR: ''
+  DOCKER_FILE: .setup/build/production/Dockerfile
+  PROJECT: ${CI_PROJECT_NAME}
+  REGISTRY: 885170164782.dkr.ecr.sa-east-1.amazonaws.com
+
+job_build_app:
+  extends: .job_build_app
+  stage: image
+  variables:
+    ENVIRONMENT: stage
+    TAG: ${ENVIRONMENT}-${CI_COMMIT_SHORT_SHA}
+  script:
+    - docker build -t ${REGISTRY}/${PROJECT}:${TAG} -t ${REGISTRY}/${PROJECT}:latest --build-arg BUILDKIT_INLINE_CACHE=1 -f ${DOCKER_FILE} .
+    - docker push ${REGISTRY}/${PROJECT}:${TAG}
+    - docker push ${REGISTRY}/${PROJECT}:latest
+
+job_test_app:
+  stage: tests
+  needs:
+    - job_build_app
+  script:
+    - ./gradlew test
